@@ -1,4 +1,5 @@
 ﻿using November2022.Utilities;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -50,15 +51,23 @@ namespace November2022.Pages
             goToLastPageButton.Click();
 
             IWebElement newCode = driver.FindElement(By.XPath("//*[@id='tmsGrid']/div[3]/table/tbody/tr[last()]/td[1]"));
+            IWebElement newDescription = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[3]"));
+            IWebElement newPrice = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[last()]/td[4]"));
 
-            if (newCode.Text == "November2022")
-            {
-                Console.WriteLine("Time record created successfully.");
-            }
-            else
-            {
-                Console.WriteLine("Time record hasn't been created successfully");
-            }
+            // Example 1:
+            Assert.That(newCode.Text == "November2022", "Actual code and expected code do not match.");
+            Assert.That(newDescription.Text == "November2022", "Actual description and expected description do not match");
+            Assert.That(newPrice.Text == "$12.00", "Actual price and expeected price do not match.");
+            
+            // Example 2:
+            //if (newCode.Text == "November2022")
+            //{
+            //    Assert.Pass("Time record created successfully.");
+            //}
+            //else
+            //{
+            //    Assert.Fail("Time record hasn't been created successfully");
+            //}
         }
 
         public void EditTM(IWebDriver driver)
