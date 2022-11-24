@@ -1,14 +1,24 @@
-﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace November2022.Utilities
 {
     public class CommonDriver
     {
         public static IWebDriver driver;
+
+        [OneTimeSetUp]
+        public void LoginSteps()
+        {
+            driver = new ChromeDriver();
+            // Login page object initialization and definition
+            LoginPage loginPageObj = new LoginPage();
+            loginPageObj.LoginActions(driver);
+        }
+
+        [OneTimeTearDown]
+        public void CloseTestRun()
+        {
+            driver.Quit();
+        }
     }
 }

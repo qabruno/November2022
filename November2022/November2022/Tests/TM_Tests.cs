@@ -1,55 +1,47 @@
-﻿using November2022.Pages;
-using November2022.Utilities;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-
+﻿
 
 namespace November2022.Tests
 {
     [TestFixture]
+    [Parallelizable]
     public class TM_Tests : CommonDriver
     {
-        [SetUp]
-        public void LoginSteps()
-        {
-            driver = new ChromeDriver();
-            // Login page object initialization and definition
-            LoginPage loginPageObj = new LoginPage();
-            loginPageObj.LoginActions(driver);
 
+        [Test, Order(1), Description("Check if user is able to create a new record with valid data")]
+        public void CreateTM_Test()
+        {
             // Home page object initialization and definition
             HomePage homePageObj = new HomePage();
             homePageObj.GoToTMPage(driver);
-        }
 
-        [Test]
-        public void CreateTM_Test()
-        {
             // TM Page object initialization and definition
             TMPage tmPageObj = new TMPage();
             tmPageObj.CreateTM(driver);
         }
 
-        [Test]
+        [Test, Order(2), Description("Check if user is able to edit an existing record with valid data")]
         public void EditTM_Test()
         {
+            // Home page object initialization and definition
+            HomePage homePageObj = new HomePage();
+            homePageObj.GoToTMPage(driver);
+
             TMPage tmPageObj = new TMPage();
             tmPageObj.EditTM(driver);
         }
 
-        [Test]
+        [Test, Order (3), Description("Check if user is able to delete existing record successfully")]
         public void DeleteTM_Test()
         {
+            // Home page object initialization and definition
+            HomePage homePageObj = new HomePage();
+            homePageObj.GoToTMPage(driver);
+
             TMPage tmPageObj = new TMPage();
             tmPageObj.DeleteTM(driver);
         }
 
-        [TearDown]
-        public void CloseTestRun()
-        {
-            driver.Quit();
-        }
+
 
 
          
